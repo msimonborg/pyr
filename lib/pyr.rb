@@ -1,5 +1,5 @@
 require "pyr/version"
 
-module Pyr
+module PYR
   # Your code goes here...
 end

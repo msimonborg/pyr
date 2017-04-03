@@ -5,7 +5,7 @@ require 'pyr/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "pyr"
-  spec.version       = Pyr::VERSION
+  spec.version       = PYR::VERSION
   spec.authors       = ["M. Simon Borg"]
   spec.email         = ["msimonborg@gmail.com"]
 
