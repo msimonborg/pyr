@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pyr/request'
 require 'pyr/version'
 
 # PYR provides an easy interface to the Phone Your Rep API,
