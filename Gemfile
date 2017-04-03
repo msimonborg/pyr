@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :test, :development do
+  gem 'pry',     '~> 0.10.0'
   gem 'rake',    '~> 10.0'
   gem 'rspec',   '~> 3.5.0'
   gem 'rubocop', '~> 0.48.0'
