@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pyr/response'
 require 'pyr/request'
 require 'pyr/version'
 
