@@ -1,32 +1,30 @@
 # frozen_string_literal: true
 
-require_relative 'request/base'
-require_relative 'request/reps'
+require_relative 'resource'
+require_relative 'resources/reps'
 
 module PYR
-  # The request class determines based on the :resource parameter which
+  # The resources class determines based on the :resource parameter which
   # subclass to call for constructing the query to the API.
   class Request
-    API_URL = 'https://phone-your-rep.herokuapp.com/'
+    API_URL = 'https://phone-your-rep.herokuapp.com/api/beta/'
 
     attr_accessor :resource
 
-    def self.call(resource)
-      request         = new(resource)
-      resource_object = request.build
-      yield resource_object if block_given?
-      response = Response.new "#{API_URL}#{resource_object.to_s}"
+    def self.call(resource, id = nil)
+      request  = new
+      resource = request.build(resource, id)
+      yield resource if block_given?
+      response = Response.new(API_URL, resource)
       response
     end
 
-    def initialize(resource)
-      self.resource = resource
-    end
-
-    def build
+    def build(resource, id = nil)
       case resource.to_sym
       when :reps
-        Reps.new
+        Resource::Reps.new(resource, id)
+      when :office_locations
+        Resource::OfficeLocations.new(resource, id)
       end
     end
   end
