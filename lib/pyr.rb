@@ -17,11 +17,11 @@ require 'pyr/version'
 module PYR
   API_BASE_URL = 'https://phone-your-rep.herokuapp.com/api/beta/'
 
-  PYR_RESOURCES = [
-    :reps,
-    :office_locations,
-    :states,
-    :districts,
-    :zctas
+  PYR_RESOURCES = %i[
+    reps
+    office_locations
+    states
+    districts
+    zctas
   ].freeze
 end

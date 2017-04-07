@@ -10,19 +10,22 @@ module PYR
     def initialize(base_url: nil, resource: nil, response_object: nil)
       if base_url && resource
         @controller = resource.controller
-        url = "#{base_url}#{resource}"
+        @url = "#{base_url}#{resource}"
       elsif response_object
         @controller = response_object.controller
-        url = response_object.self
+        @url = response_object.self
       end
 
-      payload     = HTTParty.get url
-      @url        = url
-      @body       = payload.parsed_response
-      @code       = payload.code
-      @message    = payload.message
-      @headers    = payload.headers
+      fetch_and_parse_payload
       parse_objects
+    end
+
+    def fetch_and_parse_payload
+      payload  = HTTParty.get url
+      @body    = payload.parsed_response
+      @code    = payload.code
+      @message = payload.message
+      @headers = payload.headers
     end
 
     def parse_objects
