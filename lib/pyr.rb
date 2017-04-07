@@ -30,4 +30,21 @@ module PYR
     districts
     zctas
   ].freeze
+
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.irregular 'zcta', 'zctas'
+  end
+
+  def self.call(resource, id = nil)
+    if resource.is_a?(ResponseObject)
+      request_object = { response_object: resource }
+    elsif resource.to_s.include? API_BASE_URL
+      request_object = { base_url: resource }
+    else
+      resource = Request.build(resource, id)
+      yield resource if block_given?
+      request_object = { base_url: API_BASE_URL, resource: resource }
+    end
+    Response.new request_object
+  end
 end
