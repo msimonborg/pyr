@@ -12,11 +12,15 @@ module PYR
     attr_accessor :resource
 
     def self.call(resource, id = nil)
-      request  = new
-      resource = request.build(resource, id)
-      yield resource if block_given?
-      response = Response.new(API_URL, resource)
-      response
+      if resource.is_a?(ResponseObject)
+        request_object = { response_object: resource }
+      else
+        request  = new
+        resource = request.build(resource, id)
+        yield resource if block_given?
+        request_object = { base_url: API_URL, resource: resource }
+      end
+      Response.new request_object
     end
 
     def build(resource, id = nil)
