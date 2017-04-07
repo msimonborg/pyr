@@ -7,18 +7,18 @@ module PYR
   # from the response body.
   class ResponseObject < LazyRecord::Base
     def initialize(opts = {})
-      new_opts = opts.inject({}) do |memo, (key, val)|
-        memo[key] = case key
-                    when 'office_locations'
-                      val.map { |obj| OfficeLocation.new(obj) }
-                    when 'reps'
-                      val.map { |obj| Rep.new(obj) }
+      new_opts = opts.each_with_object({}) do |(key, val), memo|
+        memo[key] = if PYR_RESOURCES.include?(key.to_sym)
+                      objectify(key, val)
                     else
                       val
                     end
-        memo
       end
       super(new_opts)
+    end
+
+    def objectify(name, array)
+      array.map { |obj| "PYR::#{name.classify}".constantize.new(obj) }
     end
 
     def controller

@@ -15,17 +15,18 @@ module PYR
 
     def reduce_body(body)
       body.reduce([]) do |memo, (key, value)|
-        case key
-        when 'reps'
-          LazyRecord::Relation.new model: Rep,
-                                   array: memo + value.map { |val| Rep.new(val) }
-        when 'office_locations'
-          LazyRecord::Relation.new model: OfficeLocation,
-                                   array: memo + value.map { |val| OfficeLocation.new(val) }
+        if PYR_RESOURCES.include?(key.to_sym)
+          convert_to_relation(key, memo, value)
         else
           memo
         end
       end
+    end
+
+    def convert_to_relation(resource, memo, value)
+      klass = "PYR::#{resource.classify}".constantize
+      LazyRecord::Relation.new model: klass,
+                               array: memo + value.map { |val| klass.new(val) }
     end
   end
 end
