@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module PYR
+  # Handles string conversion for request params.
+  # Will handle the conversion differently depending on if
+  # it is an ID param e.g. controller/:id
   class Param
     attr_reader :name, :value
 

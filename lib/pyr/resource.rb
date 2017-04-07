@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module PYR
+  # Resource and its subclasses accept attribute params and,
+  # in conjunction with the Param class,
+  # convert them to a URI friendly string
   class Resource
     attr_reader :id, :controller
 
