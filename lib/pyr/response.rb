@@ -11,6 +11,9 @@ module PYR
       if base_url && resource
         @controller = resource.controller
         @url = "#{base_url}#{resource}"
+      elsif base_url
+        @controller = base_url.sub(API_BASE_URL, '').split('/').first
+        @url = base_url
       elsif response_object
         @controller = response_object.controller
         @url = response_object.self

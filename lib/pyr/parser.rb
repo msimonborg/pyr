@@ -6,7 +6,7 @@ module PYR
   class Parser
     def parse(body, controller)
       if body.keys.first == 'self'
-        klass = "PYR::#{controller.classify}".constantize
+        klass = "PYR::#{controller.to_s.classify}".constantize
         LazyRecord::Relation.new model: klass, array: [klass.new(body)]
       else
         reduce_body(body)

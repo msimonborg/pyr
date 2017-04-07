@@ -9,6 +9,8 @@ module PYR
     def self.call(resource, id = nil)
       if resource.is_a?(ResponseObject)
         request_object = { response_object: resource }
+      elsif resource.to_s.include? API_BASE_URL
+        request_object = { base_url: resource }
       else
         request  = new
         resource = request.build(resource, id)
