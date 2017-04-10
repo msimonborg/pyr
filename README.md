@@ -56,11 +56,11 @@ reps.first.official_full
 reps.first.office_locations_count
 => 3
 
-reps.first.office_locations.first.city
-=> "St. Johnsbury"
+reps.first.office_locations.first.phone
+=> "802-748-9269"
 ```
 
-### Query the full index and narrowing with scopes
+### Querying the full index and narrowing with scopes
 ```ruby
 response = PYR.call :reps
 
