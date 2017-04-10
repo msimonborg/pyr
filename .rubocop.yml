@@ -1,2 +1,8 @@
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'pyr.gemspec'
+    - 'spec/**/*'
+    - 'Rakefile'
