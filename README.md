@@ -1,7 +1,7 @@
 # PYR
 [![Code Climate](https://codeclimate.com/github/msimonborg/pyr/badges/gpa.svg)](https://codeclimate.com/github/msimonborg/pyr)
 
-PYR makes integrating data from the Phone Your Rep API into your Ruby project as easy as pie.
+PYR makes integrating data from the [Phone Your Rep API](https://www.github.com/phoneyourrep/phone-your-rep-api) into your Ruby project as easy as pie.
 
 ## Installation
 
@@ -25,15 +25,18 @@ Or install it yourself as:
 ```ruby
 response = PYR.call :reps do |r|
   r.lat  = 44.5588028
-  r.long = -72.57784149999999
+  r.long = -72.5778415
 end
+
+response.uri
+=> "https://phone-your-rep.herokuapp.com/api/beta/reps?lat=44.5588028&long=-72.5778415&"
 
 ## or ##
 
-response = PYR.call(:reps) do { |r| r.address = 'Vermont' }
+response = PYR.call(:reps) { |r| r.address = 'Vermont' }
 
 response.uri
-=> "https://phone-your-rep.herokuapp.com/api/beta/reps?lat=44.5588028&long=-72.57784149999999&"
+=> "https://phone-your-rep.herokuapp.com/api/beta/reps?address=Vermont&"
 
 response.code
 => 200
