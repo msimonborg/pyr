@@ -14,6 +14,7 @@ module PYR
 
     lr_attr_accessor :self,
                      :state,
+                     :district,
                      :active,
                      :bioguide_id,
                      :official_full,

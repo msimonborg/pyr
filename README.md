@@ -1,8 +1,7 @@
-# Pyr
+# PYR
+[![Code Climate](https://codeclimate.com/github/msimonborg/pyr/badges/gpa.svg)](https://codeclimate.com/github/msimonborg/pyr)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pyr`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+PYR makes integrating data from the Phone Your Rep API into your Ruby project as easy as pie.
 
 ## Installation
 
@@ -22,7 +21,97 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Querying by location
+```ruby
+response = PYR.call :reps do |r|
+  r.lat  = 44.5588028
+  r.long = -72.57784149999999
+end
+
+## or ##
+
+response = PYR.call(:reps) do { |r| r.address = 'Vermont' }
+
+response.uri
+=> "https://phone-your-rep.herokuapp.com/api/beta/reps?lat=44.5588028&long=-72.57784149999999&"
+
+response.code
+=> 200
+
+response.message
+=> "OK"
+
+response.headers
+=> { ... }
+
+response.body
+=> { ... }
+
+reps = response.objects
+=> #<PYR::RepRelation [#<PYR::Rep id: 1, ...>]>
+
+reps.first.official_full
+=> "Bernard Sanders"
+
+reps.first.office_locations_count
+=> 3
+
+reps.first.office_locations.first.city
+=> "St. Johnsbury"
+```
+
+### Query the full index and narrowing with scopes
+```ruby
+response = PYR.call :reps
+
+reps = response.objects
+
+reps.count
+=> 536
+
+reps.democratic.count
+=> 243
+
+reps.senators.count
+=> 100
+
+reps.democratic.senators.count
+=> 46
+
+reps.where official_full: 'Bernard Sanders'
+=> #<PYR::RepRelation [#<PYR::Rep id: 435, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: {"self"=>"https://phone-your-rep.herokuapp.com/states/50", "state_code"=>"50", "name"=>"Vermont", "abbr"=>"VT"}, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>]>
+
+reps.independent.where { |r| r.state['name'] == 'Vermont' }.first
+=> #<PYR::Rep id: 435, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: {"self"=>"https://phone-your-rep.herokuapp.com/states/50", "state_code"=>"50", "name"=>"Vermont", "abbr"=>"VT"}, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>
+```
+
+### Querying by ID
+```ruby
+bernie = PYR.call(:reps, 'S000033').objects.first
+=> #<PYR::Rep ... >
+```
+
+### Querying by Object
+```ruby
+office = PYR.call(:reps, 'S000033').objects.first.office_locations.district.first
+=> #<PYR::OfficeLocation id: 1, city: "Burlington", rep: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", active: true, office_id: "S000033-burlington", bioguide_id: "S000033", office_type: "district", distance: nil, building: "", address: "1 Church St.", suite: "3rd Floor", city: "Burlington", state: "VT", zip: "05401", phone: "802-862-0697", fax: "802-860-6370", hours: "", latitude: 44.4802081, longitude: -73.2130702, v_card_link: "https://phone-your-rep.herokuapp.com/v_cards/S000033-burlington", downloads: 14, qr_code_link: "https://s3.amazonaws.com/phone-your-rep-images/S000033_burlington.png">
+
+# Pass in the object itself as the param to PYR.call
+office.office_id == PYR.call(office).objects.first.office_id
+=> true
+```
+
+### Querying by Phone Your Rep URI
+```ruby
+rep = PYR.call(:reps) { |r| r.address = 'vermont' }.objects.representatives.first
+
+uri = rep.district['self']
+=> "https://phone-your-rep.herokuapp.com/api/beta/districts/5000"
+
+district = PYR.call(uri).objects.first
+
+=> #<PYR::District id: 2, self: "https://phone-your-rep.herokuapp.com/api/beta/districts/5000", full_code: "5000", code: "00", state_code: "50">
+```
 
 ## Development
 
@@ -32,7 +121,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pyr.
+Bug reports and pull requests are welcome on GitHub at https://github.com/msimonborg/pyr.
 
 
 ## License

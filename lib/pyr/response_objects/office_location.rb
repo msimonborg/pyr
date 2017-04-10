@@ -6,7 +6,8 @@ module PYR
   # for a single office location, which in turn is associated to a
   # rep in a `:rep has_many :office_locations` relationship.
   class OfficeLocation < ResponseObject
-    lr_attr_accessor :city,
+    lr_attr_accessor :self,
+                     :city,
                      :rep,
                      :active,
                      :office_id,
@@ -27,5 +28,8 @@ module PYR
                      :v_card_link,
                      :downloads,
                      :qr_code_link
+
+    lr_scope :capitol, -> { where office_type: 'capitol' }
+    lr_scope :district, -> { where office_type: 'district' }
   end
 end
