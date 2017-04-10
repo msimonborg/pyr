@@ -19,7 +19,7 @@ module PYR
 
     def to_s
       url_value = value.to_s.tr('#;\'""', '').gsub(' ', '%20')
-      id? ? "/#{value}" : "#{name}=#{url_value}&"
+      id? ? "/#{value}" : "#{name}=#{url_value}"
     end
   end
 end

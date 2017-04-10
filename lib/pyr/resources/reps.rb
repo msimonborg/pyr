@@ -6,24 +6,24 @@ module PYR
     class Reps < Resource
       attr_reader :lat, :long, :address, :generate
 
-      def params
-        "#{id}?#{lat}#{long}#{address}#{generate}"
-      end
-
       def lat=(value)
         @lat = Param.new(:lat, value)
+        params << @lat
       end
 
       def long=(value)
         @long = Param.new(:long, value)
+        params << @long
       end
 
       def address=(value)
         @address = Param.new(:address, value)
+        params << @address
       end
 
       def generate=(value)
         @generate = Param.new(:generate, value)
+        params << @generate
       end
     end
   end

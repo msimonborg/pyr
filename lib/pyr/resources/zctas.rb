@@ -6,12 +6,9 @@ module PYR
     class Zctas < Resource
       attr_reader :reps
 
-      def params
-        "#{id}?#{reps}"
-      end
-
       def reps=(value)
         @reps = Param.new(:reps, value)
+        params << @reps
       end
     end
   end

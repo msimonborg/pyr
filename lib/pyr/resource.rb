@@ -17,11 +17,11 @@ module PYR
     end
 
     def to_s
-      "#{controller}#{params}"
+      "#{controller}#{id}?#{params.map(&:to_s).join('&')}"
     end
 
     def params
-      "#{id}?"
+      @params ||= []
     end
   end
 end
