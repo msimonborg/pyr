@@ -67,7 +67,7 @@ require 'pyr/version'
 #
 # The return value of ::call is an instance of the PYR::Response class.
 # You can call these methods on the object:
-
+#
 #   #objects => A collection, similar to an ActiveRecord Relation, of
 #               objects descended from the PYR::ResponseObject superclass,
 #               which have getter methods for each data attribute.
