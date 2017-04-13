@@ -2,18 +2,24 @@
 
 module PYR
   class Resource
-    # Request object for sending requests to the /reps resource of the API
+    # Resource object for sending requests to the /reps resource of the API
     class Reps < Resource
-      # Read the params
-      attr_reader :lat, :long, :address, :generate
+      # Read the lat param
+      attr_reader :lat
+      # Read the long param
+      attr_reader :long
+      # Read the address param
+      attr_reader :address
+      # Read the generate param
+      attr_reader :generate
 
       # Set the lat param : float
       # Needs to be accompanied by :long.
       #
       # Usage:
       #   PYR.call :reps do |r|
-      #     r.lat  = 45.00000
-      #     r.long = -45.00000
+      #     r.lat  = 45.0
+      #     r.long = -70.0
       #   end
       def lat=(float)
         @lat = Param.new(:lat, float)
@@ -26,7 +32,7 @@ module PYR
       # Usage:
       #   PYR.call :reps do |r|
       #     r.lat  = 45.0
-      #     r.long = -45.0
+      #     r.long = -70.0
       #   end
       #
       # Resulting URI: 'https://phone-your-rep.herokuapp.com/api/beta/reps?lat=45.0&long=-45.0'

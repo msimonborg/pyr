@@ -71,14 +71,16 @@ require 'pyr/version'
 #   #objects => A collection, similar to an ActiveRecord Relation, of
 #               objects descended from the PYR::ResponseObject superclass,
 #               which have getter methods for each data attribute.
-#               The objects be nested inside other PYR::ResponseObjects,
+#               The objects may be nested inside other PYR::ResponseObjects,
 #               e.g. a :rep has_one :state and has_many :office_locations.
 #               The collection can be iterated over, and can be queried
 #               similarly to how you would query in ActiveRecord, using the
 #               #where method, which can take hash syntax for checking equality
 #               of discreet attributes, or block syntax if you need to do
-#               more complex comparisons. Some scopes are also available, e.g.
-#               `reps.democratic.senators`
+#               more complex comparisons. Some scopes are also available
+#               depending on the resource, e.g. `reps.democratic.senators`
+#
+#   #uri => The URI that the request was sent to.
 #
 #   #body => The raw JSON data response
 #
@@ -96,13 +98,16 @@ require 'pyr/version'
 #
 #   response.body # => { ... }
 #   response.uri # => 'https://phone-your-rep.herokuapp.com/api/beta/reps?address=vermont'
-#   response.objects.count # => 3
-#   response.objects.independent.senators.first.official_full # => "Bernard Sanders"
+#   reps = response.objects
+#   reps.count # => 3
+#   reps.independent.senators.first.official_full # => "Bernard Sanders"
 #
 #   response = PYR.call :reps
 #
 #   response.objects.count # => 536
-#   response.objects.independent.senators.where { |r| r.state.abbr == 'VT' }.first.official_full # => "Bernard Sanders"
+#   independent_senators = response.objects.independent.senators
+#   vt_fav_son = independent_senators.where { |r| r.state.abbr == 'VT' }.first
+#   vt_fav_son.official_full # => "Bernard Sanders"
 module PYR
   # The base URI for all requests
   API_BASE_URI = 'https://phone-your-rep.herokuapp.com/api/beta/'
@@ -127,13 +132,15 @@ module PYR
 
   # The main API interface. All the objects you will need to work
   # with are returned by this method.
+  #
   # Arguments can be:
   #
   # a particular PYR::ResponseObject itself to query that object's 'self' url;
   #
   # a valid Phone Your Rep URI beginning with the API_BASE_URI string value;
   #
-  # or a resource name (String or Symbol) with optional ID(String).
+  # or, perhaps most commonly, a resource name (String or Symbol) with
+  # optional ID(String).
   def self.call(resource, id = nil)
     if resource.is_a?(ResponseObject)
       request_object = { response_object: resource }
