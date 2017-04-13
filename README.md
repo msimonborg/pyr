@@ -82,10 +82,10 @@ reps.democratic.senators.count
 => 46
 
 reps.where official_full: 'Bernard Sanders'
-=> #<PYR::RepRelation [#<PYR::Rep id: 435, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: {"self"=>"https://phone-your-rep.herokuapp.com/states/50", "state_code"=>"50", "name"=>"Vermont", "abbr"=>"VT"}, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>]>
+=> #<PYR::RepRelation [#<PYR::Rep id: 428, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: #<PYR::State:0x007fdb11d42580>, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>]>
 
-reps.independent.where { |r| r.state['name'] == 'Vermont' }.first
-=> #<PYR::Rep id: 435, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: {"self"=>"https://phone-your-rep.herokuapp.com/states/50", "state_code"=>"50", "name"=>"Vermont", "abbr"=>"VT"}, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>
+reps.independent.where { |r| r.state.name == 'Vermont' }.first
+=> #<PYR::Rep id: 428, self: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", state: #<PYR::State:0x007fdb11d42580>, district: nil, active: true, bioguide_id: "S000033", official_full: "Bernard Sanders", role: "United States Senator", party: "Independent", senate_class: "01", last: "Sanders", first: "Bernard", middle: nil, nickname: "Bernie", suffix: nil, contact_form: "http://www.sanders.senate.gov/contact/", url: "https://www.sanders.senate.gov", photo: "https://phoneyourrep.github.io/images/congress/450x550/S000033.jpg", twitter: "SenSanders", facebook: "senatorsanders", youtube: "senatorsanders", instagram: nil, googleplus: nil, twitter_id: "29442313", facebook_id: nil, youtube_id: "UCD_DaKNac0Ta-2PeHuoQ1uA", instagram_id: nil, office_locations_count: 3>
 ```
 
 ### Querying by ID
@@ -108,7 +108,7 @@ office.office_id == PYR.call(office).objects.first.office_id
 ```ruby
 rep = PYR.call(:reps) { |r| r.address = 'vermont' }.objects.representatives.first
 
-uri = rep.district['self']
+uri = rep.district.self
 => "https://phone-your-rep.herokuapp.com/api/beta/districts/5000"
 
 district = PYR.call(uri).objects.first
