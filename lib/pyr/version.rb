@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module PYR # :nodoc:
-  VERSION = '0.2.0'
+module PYR
+  VERSION = '0.2.0' # :nodoc:
 end
