@@ -9,7 +9,7 @@ module PYR
     lr_scope :capitol, -> { where office_type: 'capitol' }
     lr_scope :district, -> { where office_type: 'district' }
 
-    lr_attr_accessor :self,
+    attr_accessor :self,
                      :city,
                      :rep,
                      :active,

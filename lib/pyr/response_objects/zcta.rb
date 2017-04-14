@@ -6,6 +6,6 @@ module PYR
   class Zcta < ResponseObject
     lr_has_many :districts, :reps
 
-    lr_attr_accessor :self, :zcta
+    attr_accessor :self, :zcta
   end
 end

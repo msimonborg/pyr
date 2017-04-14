@@ -12,7 +12,7 @@ module PYR
     lr_scope :senators, -> { where role: 'United States Senator' }
     lr_scope :representatives, -> { where role: 'United States Representative' }
 
-    lr_attr_accessor :self,
+    attr_accessor :self,
                      :state,
                      :district,
                      :active,

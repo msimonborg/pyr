@@ -19,6 +19,6 @@ module PYR
   #   #state_code => Unique 2 digit code for the State that contains
   #                  the district.
   class District < ResponseObject
-    lr_attr_accessor :self, :full_code, :code, :state_code
+    attr_accessor :self, :full_code, :code, :state_code
   end
 end
