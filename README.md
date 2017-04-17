@@ -28,20 +28,20 @@ response = PYR.call :reps do |r|
   r.long = -72.5778415
 end
 
-response.uri
-=> "https://phone-your-rep.herokuapp.com/api/beta/reps?lat=44.5588028&long=-72.5778415&"
+response.path
+=> "reps?lat=44.5588028&long=-72.5778415"
 
 ## or ##
 
 response = PYR.call(:reps) { |r| r.address = 'Vermont' }
 
-response.uri
-=> "https://phone-your-rep.herokuapp.com/api/beta/reps?address=Vermont&"
+response.path
+=> "reps?address=Vermont"
 
 response.code
 => 200
 
-response.message
+response.reason_phrase
 => "OK"
 
 response.headers
@@ -101,6 +101,10 @@ office = PYR.call(:reps, 'S000033').objects.first.office_locations.district.firs
 
 # Pass in the object itself as the param to PYR.call
 office.office_id == PYR.call(office).objects.first.office_id
+=> true
+
+# Or use #call on the object itself
+office.office_id == office.call.objects.first.office_id
 => true
 ```
 
