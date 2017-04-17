@@ -155,7 +155,7 @@ module PYR
     if resource.is_a?(ResponseObject)
       request_object = { response_object: resource }
     elsif resource.to_s.include? API_BASE_URI
-      request_object = { base_url: resource }
+      request_object = { uri: resource }
     else
       resource = Request.build(resource, id)
       yield resource if block_given?
