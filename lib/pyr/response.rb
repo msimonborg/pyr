@@ -7,7 +7,6 @@ module PYR
   #     # => #<PYR::Response:0x007fe8f90829f8 ... >
   class Response
     # Returns a hash of the Raw JSON response
-    # == Example
     #     response.body # => { ... }
     attr_reader :body
     # Returns a string of the URI path
