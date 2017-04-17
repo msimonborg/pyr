@@ -2,5 +2,5 @@
 
 
 module PYR
-  VERSION = '0.3.1' # :nodoc:
+  VERSION = '0.3.2' # :nodoc:
 end
