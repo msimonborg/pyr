@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+require 'faraday'
+require 'faraday_middleware'
+
 require 'pyr/param'
 require 'pyr/parser'
 require 'pyr/resource'
@@ -112,6 +115,13 @@ module PYR
   # The base URI for all requests
   API_BASE_URI = 'https://phone-your-rep.herokuapp.com/api/beta/'
 
+  # Faraday API Connection
+  API_CONN = Faraday.new url: API_BASE_URI do |conn|
+    conn.response :json, content_type: /\bjson$/
+    conn.response :yaml, content_type: /\byaml$/
+    conn.adapter Faraday.default_adapter
+  end
+
   # The API resources available to query
   PYR_RESOURCES = %i[
     reps
@@ -149,7 +159,7 @@ module PYR
     else
       resource = Request.build(resource, id)
       yield resource if block_given?
-      request_object = { base_url: API_BASE_URI, resource: resource }
+      request_object = { resource: resource }
     end
     Response.new request_object
   end

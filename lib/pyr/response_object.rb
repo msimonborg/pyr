@@ -14,7 +14,7 @@ module PYR
     # Pass in an options hash to instantiate the object and set the data
     # attributes. First iterates through the hash converting nested hashes
     # and arrays of hashes into other PYR::ResponseObjects if possible.
-    # Hash keys that are not defined as attributes with `lr_attr_accessor`
+    # Hash keys that are not defined as attributes with `attr_accessor`
     # or `lr_has_many` will not be accessible in the parent object.
     def initialize(opts = {}, &block)
       new_opts = opts.each_with_object({}) do |(key, val), memo|
@@ -26,6 +26,11 @@ module PYR
     # The controller name, based on the object's class name.
     def controller
       @controller ||= self.class.to_s.split('::').last.tableize
+    end
+
+    #
+    def call
+      PYR.call self
     end
 
     private
