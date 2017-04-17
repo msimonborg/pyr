@@ -7,34 +7,35 @@ module PYR
   #     # => #<PYR::Response:0x007fe8f90829f8 ... >
   class Response
     # Returns a hash of the Raw JSON response
-    #     response.body # => { ... }
+    #
+    #   response.body # => { ... }
     attr_reader :body
     # Returns a string of the URI path
-    # == Example
-    #     response.path # => 'reps/S000033'
+    #
+    #   response.path # => 'reps/S000033'
     attr_reader :path
     # Returns an integer of the  HTTP status code
-    # == Example
-    #     response.code # => 200
+    #
+    #   response.code # => 200
     attr_reader :code
     # Returns a string of the response HTTP reason phrase
-    # == Example
-    #     response.reason_phrase # => "OK"
+    #
+    #   response.reason_phrase # => "OK"
     attr_reader :reason_phrase
     # Returns a hash of the response HTTP headers
-    # == Example
-    #     response.headers # => {"server"=>"Cowboy", "connection"=>"close", ... }
+    #
+    #   response.headers # => {"server"=>"Cowboy", "connection"=>"close", ... }
     attr_reader :headers
     # Returns a collection of PYR::ResponseObjects representing API objects
-    # == Example
-    #     response.objects
-    #     # => #<PYR::RepRelation [#<PYR::Rep ... >]>
-    #     response.objects.first.office_locations
-    #     # => #<PYR::OfficeLocationRelation [#<PYR::OfficeLocation ... >]>
+    #
+    #   response.objects
+    #   # => #<PYR::RepRelation [#<PYR::Rep ... >]>
+    #   response.objects.first.office_locations
+    #   # => #<PYR::OfficeLocationRelation [#<PYR::OfficeLocation ... >]>
     attr_reader :objects
     # Returns a symbol representing the Responding API controller
-    # == Example
-    #     response.controller # => :reps
+    #
+    #   response.controller # => :reps
     attr_reader :controller
 
     def initialize(uri: nil, resource: nil, response_object: nil)
