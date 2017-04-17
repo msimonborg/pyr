@@ -23,6 +23,7 @@
 require 'faraday'
 require 'faraday_middleware'
 
+require 'pyr/geo_findable'
 require 'pyr/param'
 require 'pyr/parser'
 require 'pyr/resource'
@@ -41,66 +42,15 @@ require 'pyr/response_objects/zcta'
 require 'pyr/request'
 require 'pyr/version'
 
-# PYR provides an easy interface to the Phone Your Rep API,
-# converting the data payloads into Plain Old Ruby Objects.
-# There is one class method on the PYR module, ::call.
-#
-# The method takes two arguments: :resource and :id. The resource
-# is the API resource, or controller name, that you want to
-# query. The name must be in plural form. The options are 'reps',
-# 'office_locations', 'states', 'districts', and 'zctas' (Zip Code
-# Tabulation Areas).
-#
-# The :id is the primary key id of a particular object. Each
-# resource has its own data attribute as ID.
-#
-#   ids = {
-#     reps: :bioguide_id,
-#     office_locations: :office_id,
-#     states: :state_code,
-#     districts: :full_code,
-#     zctas: :zcta
-#   }
-#
-# The ::call method takes a block, to which it yields an object
-# inherited from the PYR::Resource class. You can then pass params to
-# the PYR::Resource object. The particular descendant of PYR::Resource,
-# and therefore the available params, depends on the resource/controller
-# that you are querying.
-#
-# The return value of ::call is an instance of the PYR::Response class.
-# You can call these methods on the object:
-#
-#   #objects => A collection, similar to an ActiveRecord Relation, of
-#               objects descended from the PYR::ResponseObject superclass,
-#               which have getter methods for each data attribute.
-#               The objects may be nested inside other PYR::ResponseObjects,
-#               e.g. a :rep has_one :state and has_many :office_locations.
-#               The collection can be iterated over, and can be queried
-#               similarly to how you would query in ActiveRecord, using the
-#               #where method, which can take hash syntax for checking equality
-#               of discreet attributes, or block syntax if you need to do
-#               more complex comparisons. Some scopes are also available
-#               depending on the resource, e.g. `reps.democratic.senators`
-#
-#   #uri => The URI that the request was sent to.
-#
-#   #body => The raw JSON data response
-#
-#   #code => The HTTP status code e.g. 200
-#
-#   #message => The HTTP status message e.g. 'OK'
-#
-#   #controller => The API controller that was hit e.g. :reps, :zctas etc...
-#
-#   #headers => A hash containing the HTTP response headers
+# PYR wraps the Phone Your Rep API in an easy interface,
+# converting the data payloads into Ruby objects.
 #
 # ==== Examples
 #
 #   response = PYR.call(:reps) { |r| r.address = 'vermont' }
 #
 #   response.body # => { ... }
-#   response.uri # => 'https://phone-your-rep.herokuapp.com/api/beta/reps?address=vermont'
+#   response.path # => 'reps?address=vermont'
 #   reps = response.objects
 #   reps.count # => 3
 #   reps.independent.senators.first.official_full # => "Bernard Sanders"
@@ -111,6 +61,26 @@ require 'pyr/version'
 #   independent_senators = response.objects.independent.senators
 #   vt_fav_son = independent_senators.where { |r| r.state.abbr == 'VT' }.first
 #   vt_fav_son.official_full # => "Bernard Sanders"
+#   vt_fav_son.bioguide_id # => "S000033"
+#
+#   response = PYR.call :reps, 'S000033'
+#
+#   response.objects.first.official_full # => "Bernard Sanders"
+#
+#   PYR.reps('S000033').objects.first.official_full # => "Bernard Sanders"
+#
+# Any of the following resources can be passed as the first argument to `PYR.call`,
+# or called as a class method directly to the PYR module, as in the above example.
+# Both options yield a resource to the block for setting params.
+#   :reps, :office_locations, :states, :districts, :zctas
+#
+# So
+#
+#   PYR.call(:reps) { |r| r.address = 'vermont' }
+#
+# Is equivalent to
+#
+#   PYR.reps { |r| r.address = 'vermont' }
 module PYR
   # The base URI for all requests
   API_BASE_URI = 'https://phone-your-rep.herokuapp.com/api/beta/'
@@ -151,16 +121,51 @@ module PYR
   #
   # or, perhaps most commonly, a resource name (String or Symbol) with
   # optional ID(String).
-  def self.call(resource, id = nil)
+  def self.call(resource, id = nil, &config_block)
     if resource.is_a?(ResponseObject)
       request_object = { response_object: resource }
     elsif resource.to_s.include? API_BASE_URI
       request_object = { uri: resource }
     else
       resource = Request.build(resource, id)
-      yield resource if block_given?
+      config_block.call resource if block_given?
       request_object = { resource: resource }
     end
     Response.new request_object
+  end
+
+  # Call the :reps resource.
+  #
+  #   PYR.reps { |r| r.address = '123 Main St, USA 12345' }
+  def self.reps(id = nil, &config_block)
+    call(:reps, id, &config_block)
+  end
+
+  # Call the :office_locations resource.
+  #
+  #   PYR.office_locations { |r| r.address = '123 Main St, USA 12345' }
+  def self.office_locations(id=nil, &config_block)
+    call(:office_locations, id, &config_block)
+  end
+
+  # Call the :zctas resource.
+  #
+  #   PYR.zctas('90026') { |r| r.reps = true }
+  def self.zctas(id = nil, &config_block)
+    call(:zctas, id, &config_block)
+  end
+
+  # Call the :states resource.
+  #
+  #   PYR.states '50'
+  def self.states(id = nil, &config_block)
+    call(:states, id, &config_block)
+  end
+
+  # Call the :districts resource.
+  #
+  #   PYR.districts '5000'
+  def self.districts(id = nil, &config_block)
+    call(:districts, id, &config_block)
   end
 end

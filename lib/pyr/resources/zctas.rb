@@ -8,8 +8,8 @@ module PYR
       attr_reader :reps
 
       # Set the 'reps' param value
-      def reps=(value)
-        @reps = Param.new(:reps, value)
+      def reps=(boolean)
+        @reps = Param.new(:reps, boolean)
         params << @reps
       end
     end

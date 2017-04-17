@@ -66,6 +66,8 @@ reps.first.office_locations.first.phone
 ### Querying the full index and narrowing with scopes
 ```ruby
 response = PYR.call :reps
+# is equivalent to
+response = PYR.reps
 
 reps = response.objects
 
@@ -96,7 +98,7 @@ bernie = PYR.call(:reps, 'S000033').objects.first
 
 ### Querying by Object
 ```ruby
-office = PYR.call(:reps, 'S000033').objects.first.office_locations.district.first
+office = PYR.reps('S000033').objects.first.office_locations.district.first
 => #<PYR::OfficeLocation id: 1, city: "Burlington", rep: "https://phone-your-rep.herokuapp.com/api/beta/reps/S000033", active: true, office_id: "S000033-burlington", bioguide_id: "S000033", office_type: "district", distance: nil, building: "", address: "1 Church St.", suite: "3rd Floor", city: "Burlington", state: "VT", zip: "05401", phone: "802-862-0697", fax: "802-860-6370", hours: "", latitude: 44.4802081, longitude: -73.2130702, v_card_link: "https://phone-your-rep.herokuapp.com/v_cards/S000033-burlington", downloads: 14, qr_code_link: "https://s3.amazonaws.com/phone-your-rep-images/S000033_burlington.png">
 
 # Pass in the object itself as the param to PYR.call
@@ -110,7 +112,7 @@ office.office_id == office.call.objects.first.office_id
 
 ### Querying by Phone Your Rep URI
 ```ruby
-rep = PYR.call(:reps) { |r| r.address = 'vermont' }.objects.representatives.first
+rep = PYR.reps { |r| r.address = 'vermont' }.objects.representatives.first
 
 uri = rep.district.self
 => "https://phone-your-rep.herokuapp.com/api/beta/districts/5000"

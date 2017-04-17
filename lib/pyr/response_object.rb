@@ -28,7 +28,7 @@ module PYR
       @controller ||= self.class.to_s.split('::').last.tableize
     end
 
-    #
+    # Send a request to the API for the object.
     def call
       PYR.call self
     end
