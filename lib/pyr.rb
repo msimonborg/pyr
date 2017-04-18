@@ -151,7 +151,10 @@ module PYR
   # Call the :office_locations resource.
   #
   # @example
-  #   PYR.office_locations { |r| r.address = '123 Main St, USA 12345' }
+  #   PYR.office_locations do |r|
+  #     r.address = '123 Main St, USA 12345'
+  #     r.radius = 50
+  #   end
   #
   # @return [PYR::Response]
   def self.office_locations(id = nil, &config_block)
