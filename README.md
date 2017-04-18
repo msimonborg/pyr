@@ -1,5 +1,6 @@
 # PYR
 [![Code Climate](https://codeclimate.com/github/msimonborg/pyr/badges/gpa.svg)](https://codeclimate.com/github/msimonborg/pyr)
+[![Coverage Status](https://coveralls.io/repos/github/msimonborg/pyr/badge.svg?branch=master)](https://coveralls.io/github/msimonborg/pyr?branch=master)
 
 PYR makes integrating data from the [Phone Your Rep API](https://www.github.com/phoneyourrep/phone-your-rep-api) into your Ruby project as easy as pie.
 
