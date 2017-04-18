@@ -117,12 +117,14 @@ module PYR
   #
   # Arguments can be:
   #
-  # a particular PYR::ResponseObject itself to query that object's 'self' url;
+  # * a particular PYR::ResponseObject itself to query that object's 'self' url;
   #
-  # a valid Phone Your Rep URI beginning with the API_BASE_URI string value;
+  # * a valid Phone Your Rep URI beginning with the API_BASE_URI string value;
   #
-  # or, perhaps most commonly, a resource name (String or Symbol) with
-  # optional ID(String).
+  # * or, perhaps most commonly, a resource name (String or Symbol) with
+  #   optional ID(String).
+  #
+  # @return [Response]
   def self.call(resource, id = nil, &config_block)
     if resource.is_a?(ResponseObject)
       request_object = { response_object: resource }
@@ -138,35 +140,50 @@ module PYR
 
   # Call the :reps resource.
   #
+  # @example
   #   PYR.reps { |r| r.address = '123 Main St, USA 12345' }
+  #
+  # @return [PYR::Response]
   def self.reps(id = nil, &config_block)
     call(:reps, id, &config_block)
   end
 
   # Call the :office_locations resource.
   #
+  # @example
   #   PYR.office_locations { |r| r.address = '123 Main St, USA 12345' }
+  #
+  # @return [PYR::Response]
   def self.office_locations(id = nil, &config_block)
     call(:office_locations, id, &config_block)
   end
 
   # Call the :zctas resource.
   #
+  # @example
   #   PYR.zctas('90026') { |r| r.reps = true }
+  #
+  # @return [PYR::Response]
   def self.zctas(id = nil, &config_block)
     call(:zctas, id, &config_block)
   end
 
   # Call the :states resource.
   #
+  # @example
   #   PYR.states '50'
+  #
+  # @return [PYR::Response]
   def self.states(id = nil, &config_block)
     call(:states, id, &config_block)
   end
 
   # Call the :districts resource.
   #
+  # @example
   #   PYR.districts '5000'
+  #
+  # @return [PYR::Response]
   def self.districts(id = nil, &config_block)
     call(:districts, id, &config_block)
   end

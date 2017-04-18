@@ -37,6 +37,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.3.0'
   spec.add_dependency 'faraday', '~> 0.12.0'
   spec.add_dependency 'faraday_middleware', '~> 0.11.0'
-  spec.add_dependency 'lazy_record', '~> 0.5.0'
+  spec.add_dependency 'lazy_record', '~> 0.6.0'
   spec.add_development_dependency 'bundler', '~> 1.14'
 end
