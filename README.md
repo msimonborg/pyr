@@ -1,4 +1,5 @@
 # PYR
+[![Gem Version](https://badge.fury.io/rb/pyr.svg)](https://badge.fury.io/rb/pyr)
 [![Code Climate](https://codeclimate.com/github/msimonborg/pyr/badges/gpa.svg)](https://codeclimate.com/github/msimonborg/pyr)
 [![Coverage Status](https://coveralls.io/repos/github/msimonborg/pyr/badge.svg?branch=master)](https://coveralls.io/github/msimonborg/pyr?branch=master)
 [![Build Status](https://travis-ci.org/msimonborg/pyr.svg?branch=master)](https://travis-ci.org/msimonborg/pyr)
