@@ -69,8 +69,10 @@ require 'pyr/version'
 #
 #   PYR.reps('S000033').objects.first.official_full # => "Bernard Sanders"
 #
-# Any of the following resources can be passed as the first argument to `PYR.call`,
-# or called as a class method directly to the PYR module, as in the above example.
+# Any of the following resources can be passed as the first argument to
+# `PYR.call`, or called as a class method directly to the PYR module,
+# as in the above example.
+#
 # Both options yield a resource to the block for setting params.
 #   :reps, :office_locations, :states, :districts, :zctas
 #
@@ -144,7 +146,7 @@ module PYR
   # Call the :office_locations resource.
   #
   #   PYR.office_locations { |r| r.address = '123 Main St, USA 12345' }
-  def self.office_locations(id=nil, &config_block)
+  def self.office_locations(id = nil, &config_block)
     call(:office_locations, id, &config_block)
   end
 
