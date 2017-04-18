@@ -4,7 +4,7 @@ describe 'PYR::District' do
   before(:all) do
     @district = PYR::District.new
 
-    @attributes = [:self, :full_code, :code, :state_code]
+    @attributes = %i[self full_code code state_code]
   end
 
   it 'is a LazyRecord::Base object' do

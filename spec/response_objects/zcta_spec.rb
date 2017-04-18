@@ -4,9 +4,9 @@ describe 'PYR::Zcta' do
   before(:all) do
     @zcta = PYR::Zcta.new
 
-    @attributes = [:self, :zcta]
+    @attributes = %i[self zcta]
 
-    @collections = [:districts, :reps]
+    @collections = %i[districts reps]
   end
 
   it 'is a LazyRecord::Base object' do

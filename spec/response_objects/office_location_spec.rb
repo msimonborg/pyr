@@ -4,32 +4,32 @@ describe 'PYR::OfficeLocation' do
   before(:all) do
     @office_location = PYR::OfficeLocation.new
 
-    @attributes = [
-      :self,
-      :city,
-      :rep,
-      :active,
-      :office_id,
-      :bioguide_id,
-      :office_type,
-      :distance,
-      :building,
-      :address,
-      :suite,
-      :city,
-      :state,
-      :zip,
-      :phone,
-      :fax,
-      :hours,
-      :latitude,
-      :longitude,
-      :v_card_link,
-      :downloads,
-      :qr_code_link
+    @attributes = %i[
+      self
+      city
+      rep
+      active
+      office_id
+      bioguide_id
+      office_type
+      distance
+      building
+      address
+      suite
+      city
+      state
+      zip
+      phone
+      fax
+      hours
+      latitude
+      longitude
+      v_card_link
+      downloads
+      qr_code_link
     ]
 
-    @scopes = [:district, :capitol]
+    @scopes = %i[district capitol]
   end
 
   it 'is a LazyRecord::Base object' do

@@ -4,7 +4,7 @@ describe 'PYR::State' do
   before(:all) do
     @state = PYR::State.new
 
-    @attributes = [:self, :state_code, :name, :abbr]
+    @attributes = %i[self state_code name abbr]
   end
 
   it 'is a LazyRecord::Base object' do

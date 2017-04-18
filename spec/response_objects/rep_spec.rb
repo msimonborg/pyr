@@ -4,41 +4,41 @@ describe 'Rep' do
   before(:all) do
     @rep = PYR::Rep.new
 
-    @attributes = [
-      :self,
-      :state,
-      :district,
-      :active,
-      :bioguide_id,
-      :official_full,
-      :role,
-      :party,
-      :senate_class,
-      :last,
-      :first,
-      :middle,
-      :nickname,
-      :suffix,
-      :contact_form,
-      :url,
-      :photo,
-      :twitter,
-      :facebook,
-      :youtube,
-      :instagram,
-      :googleplus,
-      :twitter_id,
-      :facebook_id,
-      :youtube_id,
-      :instagram_id
+    @attributes = %i[
+      self
+      state
+      district
+      active
+      bioguide_id
+      official_full
+      role
+      party
+      senate_class
+      last
+      first
+      middle
+      nickname
+      suffix
+      contact_form
+      url
+      photo
+      twitter
+      facebook
+      youtube
+      instagram
+      googleplus
+      twitter_id
+      facebook_id
+      youtube_id
+      instagram_id
     ]
 
-    @scopes = [
-      :republican,
-      :democrat,
-      :independent,
-      :senators,
-      :representatives
+    @scopes = %i[
+      republican
+      democrat
+      independent
+      senators
+      representatives
     ]
   end
 
