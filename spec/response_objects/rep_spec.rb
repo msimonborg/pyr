@@ -70,6 +70,8 @@ describe 'Rep' do
   end
 
   it 'responds to scopes' do
+    PYR::Rep.destroy_all
+    
     scope_returns = {
       democrat:        PYR::Rep.new(party: 'Democrat'),
       republican:      PYR::Rep.new(party: 'Republican'),

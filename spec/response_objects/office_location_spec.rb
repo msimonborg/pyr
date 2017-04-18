@@ -44,6 +44,8 @@ describe 'PYR::OfficeLocation' do
   end
 
   it 'responds to scopes' do
+    PYR::OfficeLocation.destroy_all
+    
     scope_returns = {
       district: PYR::OfficeLocation.new(office_type: 'district'),
       capitol:  PYR::OfficeLocation.new(office_type: 'capitol')

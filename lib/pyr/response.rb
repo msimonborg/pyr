@@ -49,8 +49,8 @@ module PYR
         @controller = resource.controller
         @path       = resource.to_s
       elsif uri
-        @controller = uri.sub!(API_BASE_URI, '').split('/').first
-        @path       = uri
+        @path       = uri.sub(API_BASE_URI, '')
+        @controller = @path.split('/').first
       elsif response_object
         @controller = response_object.controller
         @path       = response_object.self.sub(API_BASE_URI, '')
