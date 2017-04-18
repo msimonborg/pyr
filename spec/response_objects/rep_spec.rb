@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe 'Rep' do
-  before (:all) do
+  before(:all) do
     @rep = PYR::Rep.new
 
     @attributes = [
@@ -71,11 +71,11 @@ describe 'Rep' do
 
   it 'responds to scopes' do
     scope_returns = {
-      democrat:          PYR::Rep.new(party: 'Democrat'),
-      republican:        PYR::Rep.new(party: 'Republican'),
-      independent:       PYR::Rep.new(party: 'Independent'),
-      representatives:   PYR::Rep.new(role: 'United States Representative'),
-      senators:          PYR::Rep.new(role: 'United States Senator')
+      democrat:        PYR::Rep.new(party: 'Democrat'),
+      republican:      PYR::Rep.new(party: 'Republican'),
+      independent:     PYR::Rep.new(party: 'Independent'),
+      representatives: PYR::Rep.new(role: 'United States Representative'),
+      senators:        PYR::Rep.new(role: 'United States Senator')
     }
 
     @scopes.each do |scope|
