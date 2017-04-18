@@ -74,13 +74,13 @@ reps = response.objects
 reps.count
 => 536
 
-reps.democratic.count
+reps.democrat.count
 => 243
 
 reps.senators.count
 => 100
 
-reps.democratic.senators.count
+reps.democrat.senators.count
 => 46
 
 reps.where official_full: 'Bernard Sanders'
@@ -136,4 +136,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/msimon
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

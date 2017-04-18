@@ -7,7 +7,7 @@ module PYR
     lr_has_many :office_locations
 
     lr_scope :republican, -> { where party: 'Republican' }
-    lr_scope :democratic, -> { where party: 'Democrat' }
+    lr_scope :democrat, -> { where party: 'Democrat' }
     lr_scope :independent, -> { where party: 'Independent' }
     lr_scope :senators, -> { where role: 'United States Senator' }
     lr_scope :representatives, -> { where role: 'United States Representative' }
