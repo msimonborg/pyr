@@ -7,5 +7,5 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'Rakefile'
 
-Style/RedundantFreeze:
-  Enabled: false
+AllCops:
+  TargetRubyVersion: 2.4.1
