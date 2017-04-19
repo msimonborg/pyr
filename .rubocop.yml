@@ -6,3 +6,6 @@ Metrics/BlockLength:
     - 'pyr.gemspec'
     - 'spec/**/*'
     - 'Rakefile'
+
+Style/RedundantFreeze:
+  Enabled: false

@@ -85,7 +85,7 @@ require 'pyr/version'
 #   PYR.reps { |r| r.address = 'vermont' }
 module PYR
   # The base URI for all requests
-  API_BASE_URI = 'https://phone-your-rep.herokuapp.com/api/beta/'
+  API_BASE_URI = 'https://phone-your-rep.herokuapp.com/api/beta/'.freeze
 
   # Faraday API Connection
   API_CONN = Faraday.new url: API_BASE_URI do |conn|
