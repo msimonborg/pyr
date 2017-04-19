@@ -9,11 +9,9 @@ script:
   - bundle exec rake
 
 before_install:
+  - rm Gemfile.lock
   - gem update --system
   - gem update bundler
-
-after_install:
-  - bundle update
 
 notifications:
   email:
