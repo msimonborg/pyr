@@ -6,7 +6,7 @@ rvm:
   - 2.4.1
   - jruby-9.1.6.0
   - jruby-head
-  - rbx-3
+  - rbx
   - ruby-head
 
 sudo: false
@@ -17,6 +17,7 @@ bundler_args: --without development --retry=3 --jobs=3
 
 before_install:
   - gem update --system
+  - gem install bundler
   - gem update bundler
 
 env:
@@ -26,7 +27,7 @@ env:
 matrix:
   allow_failures:
     - rvm: jruby-head
-    - rvm: rbx-3
+    - rvm: rbx
     - rvm: ruby-head
   fast_finish: true
 
