@@ -11,6 +11,8 @@ script:
 before_install:
   - gem update --system
   - gem update bundler
+
+after_install:
   - bundle update
 
 notifications:
