@@ -126,6 +126,17 @@ district = PYR.call(uri).objects.first
 => #<PYR::District self: "https://phone-your-rep.herokuapp.com/api/beta/districts/5000", full_code: "5000", code: "00", state_code: "50">
 ```
 
+## Platform support
+
+Tested against:
+* MRI 2.3.0
+* MRI 2.3.4
+* MRI 2.4.1
+* JRuby 9.1.6.0
+* Rubinius 3.74
+* JRuby HEAD
+* MRI HEAD
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
