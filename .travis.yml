@@ -8,6 +8,10 @@ rvm:
 script:
   - bundle exec rake
 
+before_install:
+  - gem update --system
+  - gem update bundler
+
 notifications:
   email:
     on_success: never
