@@ -6,7 +6,7 @@ rvm:
   - 2.4.1
   - jruby-9.1.6.0
   - jruby-head
-  - rbx
+  - rubinius-3.74
   - ruby-head
 
 sudo: false
@@ -27,8 +27,8 @@ env:
 matrix:
   allow_failures:
     - rvm: jruby-head
-    - rvm: rbx
     - rvm: ruby-head
+    - rvm: rubinius-3.74
   fast_finish: true
 
 notifications:
