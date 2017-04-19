@@ -75,8 +75,8 @@ describe 'PYR' do
     expect(response.objects.first.state_code).to eq('50')
   end
 
-  it 'can call the API with a valid URI' do
-    response = PYR.call("#{PYR::API_BASE_URI.dup}reps/S000033")
+  it 'can call the API with a valid URI using #uri' do
+    response = PYR.uri("#{PYR::API_BASE_URI.dup}reps/S000033")
 
     expect(response).to be_a(PYR::Response)
     expect(response.objects.count).to eq(1)
@@ -84,9 +84,9 @@ describe 'PYR' do
     expect(response.objects.first.official_full).to eq('Bernard Sanders')
   end
 
-  it 'can call the API by passing a PYR::ResponseObject to PYR.call' do
+  it 'can call the API by passing a PYR::ResponseObject to PYR.object' do
     object   = PYR.reps('S000033').objects.first
-    response = PYR.call(object)
+    response = PYR.object(object)
 
     expect(response).to be_a(PYR::Response)
     expect(response.objects.count).to eq(1)

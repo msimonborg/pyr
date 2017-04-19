@@ -33,6 +33,8 @@ module PYR
       "#{controller}#{id}?#{params.map(&:to_s).join('&')}"
     end
 
+    private
+
     def params
       @params ||= []
     end

@@ -112,43 +112,66 @@ module PYR
     inflect.irregular 'zcta', 'zctas'
   end
 
-  # The main API interface. All the objects you will need to work
-  # with are returned by this method.
+  # Main interface to the API, specify a resource, optional ID, and params
   #
-  # Arguments can be:
+  # @param resource [Symbol, String]
+  # @param id [String]
   #
-  # * a particular PYR::ResponseObject itself to query that object's 'self' url;
+  # @return [PYR::Response]
   #
-  # * a valid Phone Your Rep URI beginning with the API_BASE_URI string value;
+  # @api public
   #
-  # * or, perhaps most commonly, a resource name (String or Symbol) with
-  #   optional ID(String).
-  #
-  # @return [Response]
+  # @example
+  #   PYR.call(:zctas, '90026') { |req| req.reps = true }
   def self.call(resource, id = nil, &config_block)
-    if resource.is_a?(ResponseObject)
-      request_object = { response_object: resource }
-    elsif resource.to_s.include? API_BASE_URI
-      request_object = { uri: resource }
-    else
-      resource = Request.build(resource, id)
-      config_block.call resource if block_given?
-      request_object = { resource: resource }
-    end
-    Response.new request_object
+    resource = Request.build(resource, id)
+    config_block.call resource if block_given?
+    Response.new(resource: resource)
   end
 
-  # Call the :reps resource.
+  # Query the API by a valid Phone Your Rep URI
+  #
+  # @example
+  #   PYR.uri("#{PYR::BASE_URI.dup}reps/S000033") # => #<PYR::Response ... >
+  #
+  # @return [PYR::Response]
+  #
+  # @param uri [String]
+  #
+  # @api public
+  def self.uri(uri)
+    Response.new(uri: uri)
+  end
+
+  # Query the API by passing a PYR::ResponseObject
+  #
+  # @example
+  #   object = PYR.call(:reps, 'S000033').objects.first # => #<PYR::Rep ... >
+  #   other_object = PYR.object(object).objects.first # => #<PYR::Rep ... >
+  #   object == other_object # => true
+  #
+  # @return [PYR::Response]
+  #
+  # @param object [PYR::ResponseObject]
+  #
+  # @api public
+  def self.object(object)
+    Response.new(response_object: object)
+  end
+
+  # Call the :reps resource
   #
   # @example
   #   PYR.reps { |r| r.address = '123 Main St, USA 12345' }
+  #
+  # @api public
   #
   # @return [PYR::Response]
   def self.reps(id = nil, &config_block)
     call(:reps, id, &config_block)
   end
 
-  # Call the :office_locations resource.
+  # Call the :office_locations resource
   #
   # @example
   #   PYR.office_locations do |r|
@@ -156,35 +179,43 @@ module PYR
   #     r.radius = 50
   #   end
   #
+  # @api public
+  #
   # @return [PYR::Response]
   def self.office_locations(id = nil, &config_block)
     call(:office_locations, id, &config_block)
   end
 
-  # Call the :zctas resource.
+  # Call the :zctas resource
   #
   # @example
   #   PYR.zctas('90026') { |r| r.reps = true }
+  #
+  # @api public
   #
   # @return [PYR::Response]
   def self.zctas(id = nil, &config_block)
     call(:zctas, id, &config_block)
   end
 
-  # Call the :states resource.
+  # Call the :states resource
   #
   # @example
   #   PYR.states '50'
+  #
+  # @api public
   #
   # @return [PYR::Response]
   def self.states(id = nil, &config_block)
     call(:states, id, &config_block)
   end
 
-  # Call the :districts resource.
+  # Call the :districts resource
   #
   # @example
   #   PYR.districts '5000'
+  #
+  # @api public
   #
   # @return [PYR::Response]
   def self.districts(id = nil, &config_block)

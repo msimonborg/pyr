@@ -23,14 +23,23 @@ module PYR
       super(new_opts, &block)
     end
 
-    # The controller name, based on the object's class name.
+    # The controller name, based on the object's class name
     def controller
       @controller ||= self.class.to_s.split('::').last.tableize
     end
 
-    # Send a request to the API for the object.
+    # Send a request to the API for the object
+    #
+    # @example
+    #   object = PYR.call(:reps, 'S000033').objects.first # => #<PYR::Rep ... >
+    #   res = object.call # => #<PYR::Response ... >
+    #   object == res.objects.first # => true
+    #
+    # @return [PYR::Response]
+    #
+    # @api public
     def call
-      PYR.call self
+      PYR.object self
     end
 
     private
