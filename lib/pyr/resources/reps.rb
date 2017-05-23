@@ -80,6 +80,51 @@ module PYR
         @chamber = Param.new(:chamber, chamber)
         params << @chamber
       end
+
+      # Set the independent boolean param
+      #
+      # @param boolean [Boolean]
+      #
+      # @api public
+      #
+      # @example
+      #   PYR.call :reps do |r|
+      #     r.independent = true
+      #   end
+      def independent=(boolean)
+        @independent = Param.new(:independent, boolean)
+        params << @independent
+      end
+
+      # Set the republican boolean param
+      #
+      # @param boolean [Boolean]
+      #
+      # @api public
+      #
+      # @example
+      #   PYR.call :reps do |r|
+      #     r.republican = true
+      #   end
+      def republican=(boolean)
+        @republican = Param.new(:republican, boolean)
+        params << @republican
+      end
+
+      # Set the democrat boolean param
+      #
+      # @param boolean [Boolean]
+      #
+      # @api public
+      #
+      # @example
+      #   PYR.call :reps do |r|
+      #     r.democrat = true
+      #   end
+      def democrat=(boolean)
+        @democrat = Param.new(:democrat, boolean)
+        params << @democrat
+      end
     end
   end
 end
