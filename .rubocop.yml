@@ -8,4 +8,4 @@ Metrics/BlockLength:
     - 'Rakefile'
 
 AllCops:
-  TargetRubyVersion: 2.4.1
+  TargetRubyVersion: 2.4
