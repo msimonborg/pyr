@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
@@ -7,5 +10,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'Rakefile'
 
-AllCops:
-  TargetRubyVersion: 2.4
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '[]'
+    '%w': '[]'
